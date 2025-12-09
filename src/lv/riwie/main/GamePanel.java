@@ -39,6 +39,7 @@ public class GamePanel extends JPanel implements Runnable {
     public UI ui = new UI(this);
     public AssetSetter aSetter = new AssetSetter(this);
     Thread gameThread;
+    public boolean playMusic = true;
 
     // PLAYER AND OBJECTS
     public Player player = new Player(this, keyH);
@@ -54,7 +55,9 @@ public class GamePanel extends JPanel implements Runnable {
     public void setupGame() {
         aSetter.setObjects();
 
-        playMusic(0); // play background music
+        if (playMusic) {
+            playMusic(0); // play background music
+        }
     }
 
     public void startGameThread() {
