@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+// import javax.swing.JFileChooser;
 
 import lv.riwie.main.GamePanel;
 import lv.riwie.main.KeyHandler;
@@ -18,7 +19,7 @@ public class Player extends Entity {
     public final int screenX;
     public final int screenY;
     public int hasKey = 0;
-
+    // int collisionNum = 0;
     public Player(GamePanel gp, KeyHandler keyH) {
         this.gp = gp;
         this.keyH = keyH;
@@ -83,6 +84,8 @@ public class Player extends Entity {
                 }
             }
 
+
+
             spriteCounter++;
             if (spriteCounter >= 12) {
                 if (spriteIndex == 1) {
@@ -106,14 +109,21 @@ public class Player extends Entity {
                 gp.obj[i] = null;
                 gp.ui.showMessage("You've got a key!");
             } else if (objectName == "Door") {
+                // collisionNum++;
+                // if (collisionNum <= 1) {
                 if (hasKey > 0) {
                 gp.playSFX(1);
                     gp.obj[i] = null;
                     hasKey--;
                     gp.ui.showMessage("You opened the door!");
+
                 } else {
                 gp.ui.showMessage("The door is locked");
+                // JFileChooser fileChooser = new JFileChooser();
+                // fileChooser.showOpenDialog(gp);
                 }
+                // }
+
             } else if (objectName == "Boots") {
                 speed += 1;
                 gp.playSFX(3);

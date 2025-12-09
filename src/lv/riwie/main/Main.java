@@ -19,7 +19,7 @@ public class Main {
     static GamePanel gp = new GamePanel();
     static Properties prop = new Properties();
     
-    static boolean allowMusic;
+    static boolean allowMusic = false;
 
     public static void main(String[] args) throws Exception {
         loadConfig();
