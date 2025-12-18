@@ -12,8 +12,7 @@ public class UI {
     GamePanel gp;
     Font gameFont = new Font("Minecraft RUS", Font.PLAIN, 40);
     Font congratulationsFont = new Font("Minecraft RUS", Font.BOLD, 50);
-    OBJ_Key key = new OBJ_Key();
-    BufferedImage keyImage = key.image;
+    BufferedImage keyImage;
     public boolean messageOn = false;
     public String message = "";
     int messageCounter = 0;
@@ -23,6 +22,8 @@ public class UI {
 
     public UI(GamePanel gp) {
         this.gp = gp;
+        OBJ_Key key = new OBJ_Key(gp);
+        keyImage = key.image;
     }
 
     public void showMessage(String text) {
@@ -43,23 +44,23 @@ public class UI {
             int y;
 
             text = "You found the treasure!";
-            textLength = (int)g2.getFontMetrics().getStringBounds(text, g2).getWidth();
-            x = gp.screenWidth / 2 - textLength/2;
-            y = gp.screenHeight / 2 - (gp.tileSize*3);
+            textLength = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
+            x = gp.screenWidth / 2 - textLength / 2;
+            y = gp.screenHeight / 2 - (gp.tileSize * 3);
             g2.drawString(text, x, y);
 
             text = "Your time is: " + dFormat.format(playTime) + "!";
-            textLength = (int)g2.getFontMetrics().getStringBounds(text, g2).getWidth();
-            x = gp.screenWidth / 2 - textLength/2;
-            y = gp.screenHeight / 2 - (gp.tileSize*5);
+            textLength = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
+            x = gp.screenWidth / 2 - textLength / 2;
+            y = gp.screenHeight / 2 - (gp.tileSize * 5);
             g2.drawString(text, x, y);
 
             g2.setFont(congratulationsFont);
             g2.setColor(Color.yellow);
             text = "Congratulations!";
-            textLength = (int)g2.getFontMetrics().getStringBounds(text, g2).getWidth();
-            x = gp.screenWidth / 2 - textLength/2;
-            y = gp.screenHeight / 2 + (gp.tileSize*2);
+            textLength = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
+            x = gp.screenWidth / 2 - textLength / 2;
+            y = gp.screenHeight / 2 + (gp.tileSize * 2);
             g2.drawString(text, x, y);
 
             gp.gameThread = null;
@@ -71,8 +72,8 @@ public class UI {
             g2.drawImage(keyImage, gp.tileSize / 2, gp.tileSize / 2, gp.tileSize, gp.tileSize, null);
             g2.drawString("x" + gp.player.hasKey, 75, 50);
 
-            playTime += (double)1/60;
-            g2.drawString("Time" + dFormat.format(playTime), gp.tileSize*11, 50);
+            playTime += (double) 1 / 60;
+            g2.drawString("Time" + dFormat.format(playTime), gp.tileSize * 11, 50);
 
             if (messageOn == true) {
                 // gp.setFont(gp.getFont(gameFont).deriveFont(30F));

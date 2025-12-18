@@ -9,6 +9,8 @@ import javax.imageio.ImageIO;
 
 import lv.riwie.main.GamePanel;
 import lv.riwie.main.KeyHandler;
+import lv.riwie.main.UtilityTool;
+
 import java.io.FileInputStream;
 
 public class Player extends Entity {
@@ -107,12 +109,12 @@ public class Player extends Entity {
                 gp.ui.showMessage("You've got a key!");
             } else if (objectName == "Door") {
                 if (hasKey > 0) {
-                gp.playSFX(1);
+                    gp.playSFX(1);
                     gp.obj[i] = null;
                     hasKey--;
                     gp.ui.showMessage("You opened the door!");
                 } else {
-                gp.ui.showMessage("The door is locked");
+                    gp.ui.showMessage("The door is locked");
                 }
             } else if (objectName == "Boots") {
                 speed += 1;
@@ -125,8 +127,7 @@ public class Player extends Entity {
                 gp.playSFX(4);
                 gp.obj[i] = null;
                 gp.ui.showMessage("Slow down!");
-            }
-            else if (objectName == "Chest") {
+            } else if (objectName == "Chest") {
                 gp.ui.gameFinished = true;
                 gp.stopMusic();
                 gp.playSFX(3);
@@ -171,7 +172,7 @@ public class Player extends Entity {
                     }
                     break;
             }
-            g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+            g2.drawImage(image, screenX, screenY, null);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -179,17 +180,27 @@ public class Player extends Entity {
     }
 
     public void getPlayerImage() {
+        up1 = setup("Character_walking_up_1");
+        up2 = setup("Character_walking_up_2");
+        down1 = setup("Character_walking_down_1");
+        down2 = setup("Character_walking_down_2");
+        left1 = setup("Character_walking_left_1");
+        left2 = setup("Character_walking_left_2");
+        right1 = setup("Character_walking_right_1");
+        right2 = setup("Character_walking_right_2");
+
+    }
+
+    public BufferedImage setup(String imageName) {
+        UtilityTool uTool = new UtilityTool();
+        BufferedImage image = null;
+
         try {
-            up1 = ImageIO.read(new FileInputStream("res/player/Character_walking_up_1.png"));
-            up2 = ImageIO.read(new FileInputStream("res/player/Character_walking_up_2.png"));
-            down1 = ImageIO.read(new FileInputStream("res/player/Character_walking_down_1.png"));
-            down2 = ImageIO.read(new FileInputStream("res/player/Character_walking_down_2.png"));
-            left1 = ImageIO.read(new FileInputStream("res/player/Character_walking_left_1.png"));
-            left2 = ImageIO.read(new FileInputStream("res/player/Character_walking_left_2.png"));
-            right1 = ImageIO.read(new FileInputStream("res/player/Character_walking_right_1.png"));
-            right2 = ImageIO.read(new FileInputStream("res/player/Character_walking_right_2.png"));
-        } catch (IOException ex) {
-            ex.printStackTrace();
+            image = ImageIO.read(new FileInputStream("res/player/" + imageName + ".png"));
+            image = uTool.scaledImage(image, gp.tileSize, gp.tileSize);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        return image;
     }
 }

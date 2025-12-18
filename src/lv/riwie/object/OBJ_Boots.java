@@ -4,12 +4,16 @@ import java.io.FileInputStream;
 
 import javax.imageio.ImageIO;
 
-public class OBJ_Boots extends SuperObject{
-        public OBJ_Boots() {
+import lv.riwie.main.GamePanel;
+
+public class OBJ_Boots extends SuperObject {
+    GamePanel gp;
+
+    public OBJ_Boots(GamePanel gp) {
         name = "Boots";
         try {
             image = ImageIO.read(new FileInputStream("res/objects/boots.png"));
-
+            uTool.scaledImage(image, gp.tileSize, gp.tileSize);
         } catch (Exception e) {
             e.printStackTrace();
         }
