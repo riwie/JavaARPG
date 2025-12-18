@@ -1,14 +1,11 @@
 package lv.riwie.tile;
 
 import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.InputStreamReader;
 
 import javax.imageio.ImageIO;
-import javax.swing.text.Utilities;
 
 import lv.riwie.main.GamePanel;
 import lv.riwie.main.UtilityTool;
