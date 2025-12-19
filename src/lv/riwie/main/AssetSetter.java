@@ -1,11 +1,6 @@
 package lv.riwie.main;
 
 import lv.riwie.entity.NPC_Wizard;
-import lv.riwie.object.OBJ_Anvil;
-import lv.riwie.object.OBJ_Boots;
-import lv.riwie.object.OBJ_Chest;
-import lv.riwie.object.OBJ_Door;
-import lv.riwie.object.OBJ_Key;
 
 public class AssetSetter {
     GamePanel gp;

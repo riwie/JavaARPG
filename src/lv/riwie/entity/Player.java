@@ -3,14 +3,9 @@ package lv.riwie.entity;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
-
-import javax.imageio.ImageIO;
-
 import lv.riwie.main.GamePanel;
 import lv.riwie.main.KeyHandler;
-import lv.riwie.main.UtilityTool;
 
-import java.io.FileInputStream;
 
 public class Player extends Entity {
     KeyHandler keyH;
