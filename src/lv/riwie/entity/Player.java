@@ -36,8 +36,8 @@ public class Player extends Entity {
 
     public void setDefaultValues() {
         // PLAYER'S SPAWNPOINT COORDINATES
-        worldX = gp.tileSize * 23;
-        worldY = gp.tileSize * 21;
+        worldX = gp.tileSize * 22;
+        worldY = gp.tileSize * 23;
 
         speed = 4;
         direction = "down";
