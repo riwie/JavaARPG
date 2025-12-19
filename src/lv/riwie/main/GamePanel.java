@@ -2,6 +2,7 @@ package lv.riwie.main;
 
 import javax.swing.JPanel;
 
+import lv.riwie.entity.Entity;
 import lv.riwie.entity.Player;
 import lv.riwie.object.SuperObject;
 import lv.riwie.tile.TileManager;
@@ -32,7 +33,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     // SYSTEM
     TileManager tileManager = new TileManager(this);
-    KeyHandler keyH = new KeyHandler(this);
+    public KeyHandler keyH = new KeyHandler(this);
     Sound sound = new Sound();
     Sound music = new Sound();
     public CollisionChecker cChecker = new CollisionChecker(this);
@@ -43,11 +44,13 @@ public class GamePanel extends JPanel implements Runnable {
     // PLAYER AND OBJECTS
     public Player player = new Player(this, keyH);
     public SuperObject obj[] = new SuperObject[10];
+    public Entity npc[] = new Entity[10];
 
     // GAME STATE
     public int gameState;
     public final int playState = 1;
     public final int pauseState = 2;
+    public final int dialogueState = 3;
 
 
     public GamePanel() {
@@ -60,8 +63,9 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void setupGame() {
         aSetter.setObjects();
-
+        aSetter.setNPC();
         playMusic(0); // play background music
+        stopMusic();
 
         gameState = playState;
 
@@ -101,6 +105,11 @@ public class GamePanel extends JPanel implements Runnable {
     public void update() {
         if (gameState == playState) {
             player.update();
+            for (int i = 0; i < npc.length; i++) {
+                if (npc[i] != null) {
+                    npc[i].update();
+                }
+            }
         }
         if (gameState == pauseState) {
             //nothing
@@ -126,6 +135,13 @@ public class GamePanel extends JPanel implements Runnable {
                 obj[i].draw(g2, this);
             }
         }
+        // npc
+        for (int i = 0; i < npc.length; i++) {
+            if (npc[i] != null) {
+                npc[i].draw(g2);
+            }
+        }
+
         // player
         player.draw(g2);
         ui.draw(g2);

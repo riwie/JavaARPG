@@ -13,15 +13,14 @@ import lv.riwie.main.UtilityTool;
 import java.io.FileInputStream;
 
 public class Player extends Entity {
-    GamePanel gp;
     KeyHandler keyH;
 
     public final int screenX;
     public final int screenY;
-    public int hasKey = 0;
+    // public int hasKey = 0;
 
     public Player(GamePanel gp, KeyHandler keyH) {
-        this.gp = gp;
+        super(gp);
         this.keyH = keyH;
         screenX = gp.screenWidth / 2 - (gp.tileSize / 2);
         screenY = gp.screenHeight / 2 - (gp.tileSize / 2);
@@ -67,6 +66,9 @@ public class Player extends Entity {
             int objIndex = gp.cChecker.checkObject(this, true);
             pickUpObject(objIndex);
 
+            int npcIndex = gp.cChecker.checkEntity(this, gp.npc);
+            interactNPC(npcIndex);
+
             if (collisionOn == false) {
                 switch (direction) {
                     case "up":
@@ -100,38 +102,18 @@ public class Player extends Entity {
 
     public void pickUpObject(int i) {
         if (i != 999) {
-            String objectName = gp.obj[i].name;
-            if (objectName == "Key") {
-                gp.playSFX(2);
-                hasKey++;
-                gp.obj[i] = null;
-                gp.ui.showMessage("You've got a key!");
-            } else if (objectName == "Door") {
-                if (hasKey > 0) {
-                    gp.playSFX(1);
-                    gp.obj[i] = null;
-                    hasKey--;
-                    gp.ui.showMessage("You opened the door!");
-                } else {
-                    gp.ui.showMessage("The door is locked");
-                }
-            } else if (objectName == "Boots") {
-                speed += 1;
-                gp.playSFX(3);
-                gp.obj[i] = null;
-                gp.ui.showMessage("Speed up!");
+            
+        }
+    }
 
-            } else if (objectName == "Anvil") {
-                speed -= 1;
-                gp.playSFX(4);
-                gp.obj[i] = null;
-                gp.ui.showMessage("Slow down!");
-            } else if (objectName == "Chest") {
-                gp.ui.gameFinished = true;
-                gp.stopMusic();
-                gp.playSFX(3);
+    public void interactNPC(int i) {
+        if (i != 999) {
+            if (gp.keyH.enterPressed) { 
+                gp.gameState = gp.dialogueState; 
+                gp.npc[i].speak();
             }
         }
+        gp.keyH.enterPressed = false;
     }
 
     public void draw(Graphics2D g2) {
@@ -179,27 +161,14 @@ public class Player extends Entity {
     }
 
     public void getPlayerImage() {
-        up1 = setup("Character_walking_up_1");
-        up2 = setup("Character_walking_up_2");
-        down1 = setup("Character_walking_down_1");
-        down2 = setup("Character_walking_down_2");
-        left1 = setup("Character_walking_left_1");
-        left2 = setup("Character_walking_left_2");
-        right1 = setup("Character_walking_right_1");
-        right2 = setup("Character_walking_right_2");
-
+        up1 = setup("res/player/Character_walking_up_1.png");
+        up2 = setup("res/player/Character_walking_up_2.png");
+        down1 = setup("res/player/Character_walking_down_1.png");
+        down2 = setup("res/player/Character_walking_down_2.png");
+        left1 = setup("res/player/Character_walking_left_1.png");
+        left2 = setup("res/player/Character_walking_left_2.png");
+        right1 = setup("res/player/Character_walking_right_1.png");
+        right2 = setup("res/player/Character_walking_right_2.png");
     }
 
-    public BufferedImage setup(String imageName) {
-        UtilityTool uTool = new UtilityTool();
-        BufferedImage image = null;
-
-        try {
-            image = ImageIO.read(new FileInputStream("res/player/" + imageName + ".png"));
-            image = uTool.scaledImage(image, gp.tileSize, gp.tileSize);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return image;
-    }
 }

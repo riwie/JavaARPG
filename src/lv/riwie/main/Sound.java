@@ -22,6 +22,7 @@ public class Sound {
         soundFiles[2] = Paths.get(projectRoot, "res/sound/key_pickup.wav").toString();
         soundFiles[3] = Paths.get(projectRoot, "res/sound/powerUp.wav").toString();
         soundFiles[4] = Paths.get(projectRoot, "res/sound/powerDown.wav").toString();
+        soundFiles[5] = Paths.get(projectRoot, "res/sound/paused.wav").toString();
     }
 
     public void setFile(int i) {
