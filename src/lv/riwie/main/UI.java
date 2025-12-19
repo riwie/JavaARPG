@@ -4,12 +4,15 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
+import java.io.BufferedInputStream;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 public class UI {
     GamePanel gp;
     Graphics2D g2;
-    Font gameFont = new Font("Minecraft RUS", Font.PLAIN, 40);
-    Font congratulationsFont = new Font("Minecraft RUS", Font.BOLD, 50);
+    Font purisaB;
     public boolean messageOn = false;
     public String message = "";
     int messageCounter = 0;
@@ -18,7 +21,12 @@ public class UI {
 
     public UI(GamePanel gp) {
         this.gp = gp;
-
+        try {
+    InputStream is = new BufferedInputStream(Files.newInputStream(Paths.get(System.getProperty("user.dir"), "res/font/Purisa.tff")));
+        purisaB = Font.createFont(Font.TRUETYPE_FONT, is);
+} catch (Exception e) {
+    e.printStackTrace();
+}
     }
 
     public void showMessage(String text) {
@@ -28,7 +36,7 @@ public class UI {
 
     public void draw(Graphics2D g2) {
         this.g2 = g2;
-        g2.setFont(gameFont);
+        g2.setFont(purisaB);
         g2.setColor(Color.white);
 
         // PLAY STATE

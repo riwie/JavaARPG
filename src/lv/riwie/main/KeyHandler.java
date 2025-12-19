@@ -2,11 +2,15 @@ package lv.riwie.main;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayDeque;
+import java.util.Deque;
 
 public class KeyHandler implements KeyListener {
 
     GamePanel gp;
     public boolean upPressed, downPressed, leftPressed, rightPressed, enterPressed;
+
+    private final Deque<Integer> directionOrder = new ArrayDeque<>();
 
     boolean checkDrawTime = false;
 
@@ -26,18 +30,20 @@ public class KeyHandler implements KeyListener {
         if (gp.gameState == gp.playState) {
             if (code == KeyEvent.VK_W) {
                 upPressed = true;
-            }
-            else if (code == KeyEvent.VK_S) {
+                rememberDirection(code);
+            } else if (code == KeyEvent.VK_S) {
                 downPressed = true;
+                rememberDirection(code);
             }
 
             if (code == KeyEvent.VK_A) {
                 leftPressed = true;
-            }
-            else if (code == KeyEvent.VK_D) {
+                rememberDirection(code);
+            } else if (code == KeyEvent.VK_D) {
                 rightPressed = true;
+                rememberDirection(code);
             }
-            
+
             if (code == KeyEvent.VK_P) {
                 gp.playSFX(5);
                 gp.gameState = gp.pauseState;
@@ -78,15 +84,62 @@ public class KeyHandler implements KeyListener {
         int code = e.getKeyCode();
         if (code == KeyEvent.VK_W) {
             upPressed = false;
-        } else if (code == KeyEvent.VK_S) {
-            downPressed = false;
+            forgetDirection(code);
         }
-
         if (code == KeyEvent.VK_A) {
             leftPressed = false;
-        } else if (code == KeyEvent.VK_D) {
-            rightPressed = false;
+            forgetDirection(code);
         }
+        if (code == KeyEvent.VK_S) {
+            downPressed = false;
+            forgetDirection(code);
+        }
+        if (code == KeyEvent.VK_D) {
+            rightPressed = false;
+            forgetDirection(code);
+        }
+    }
+
+    // Return the most recently pressed direction key that is still held, or null.
+    public String getCurrentDirection() {
+        while (!directionOrder.isEmpty()) {
+            int code = directionOrder.peekLast();
+            if (isDirectionStillHeld(code)) {
+                return codeToDirection(code);
+            }
+            directionOrder.pollLast();
+        }
+        return null;
+    }
+
+    private void rememberDirection(int code) {
+        // Maintain uniqueness then push to the back as most recent.
+        directionOrder.remove(code);
+        directionOrder.addLast(code);
+    }
+
+    private void forgetDirection(int code) {
+        directionOrder.remove(code);
+    }
+
+    private boolean isDirectionStillHeld(int code) {
+        return switch (code) {
+            case KeyEvent.VK_W -> upPressed;
+            case KeyEvent.VK_S -> downPressed;
+            case KeyEvent.VK_A -> leftPressed;
+            case KeyEvent.VK_D -> rightPressed;
+            default -> false;
+        };
+    }
+
+    private String codeToDirection(int code) {
+        return switch (code) {
+            case KeyEvent.VK_W -> "up";
+            case KeyEvent.VK_S -> "down";
+            case KeyEvent.VK_A -> "left";
+            case KeyEvent.VK_D -> "right";
+            default -> null;
+        };
     }
 
 }

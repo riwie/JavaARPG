@@ -6,7 +6,6 @@ import java.awt.image.BufferedImage;
 import lv.riwie.main.GamePanel;
 import lv.riwie.main.KeyHandler;
 
-
 public class Player extends Entity {
     KeyHandler keyH;
 
@@ -39,19 +38,12 @@ public class Player extends Entity {
 
     public void update() {
 
-        if (keyH.upPressed == true || keyH.leftPressed == true || keyH.downPressed == true
-                || keyH.rightPressed == true) {
-            if (keyH.upPressed == true) {
-                direction = "up";
-            }
-            if (keyH.leftPressed == true) {
-                direction = "left";
-            }
-            if (keyH.downPressed == true) {
-                direction = "down";
-            }
-            if (keyH.rightPressed == true) {
-                direction = "right";
+        if (keyH.upPressed == true || keyH.leftPressed == true || keyH.downPressed == true || keyH.rightPressed == true) {
+
+            // Let the latest pressed key that is still held drive the direction.
+            String newDirection = keyH.getCurrentDirection();
+            if (newDirection != null) {
+                direction = newDirection;
             }
 
             // check tile collision
@@ -97,14 +89,14 @@ public class Player extends Entity {
 
     public void pickUpObject(int i) {
         if (i != 999) {
-            
+
         }
     }
 
     public void interactNPC(int i) {
         if (i != 999) {
-            if (gp.keyH.enterPressed) { 
-                gp.gameState = gp.dialogueState; 
+            if (gp.keyH.enterPressed) {
+                gp.gameState = gp.dialogueState;
                 gp.npc[i].speak();
             }
         }
