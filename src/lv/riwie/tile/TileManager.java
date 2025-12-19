@@ -17,23 +17,76 @@ public class TileManager {
 
     public TileManager(GamePanel gp) {
         this.gp = gp;
-        tile = new Tile[20];
+        tile = new Tile[64];
         mapTileNum = new int[gp.maxWorldCol][gp.maxWorldRow];
         getTileImage();
-        loadMap("res/maps/map01.txt");
+        loadMap("res/maps/map02.txt");
     }
 
     public void getTileImage() {
         //NOTE: don't add in-between indexes - it breaks the map
-        setup(0, "grass1", false);
-        setup(1, "grass2", false);
-        setup(2, "bricks", true);
-        setup(3, "water", true);
-        setup(4, "dirt1", false);
-        setup(6, "tree", true);
-        setup(7, "sand1", false);
-        setup(8, "sand2", false);
-        setup(9, "dirt2", false);
+        // PLACEHOLDER
+        setup(0, "placeholder", false);
+        setup(1, "placeholder", false);
+        setup(2, "placeholder", false);
+        setup(3, "placeholder", false);
+        setup(4, "placeholder", false);
+        setup(5, "placeholder", false);
+        setup(6, "placeholder", false);
+        setup(7, "placeholder", false);
+        setup(8, "placeholder", false);
+        setup(9, "placeholder", false);
+
+        // TILES
+        setup(10, "sand1", false);
+        setup(11, "sand2", false);
+        setup(13, "sand3", false);
+        setup(14, "sand4", false);
+        setup(15, "sand5", false);
+        setup(16, "sand6", false);
+        setup(17, "sand7", false);
+        setup(18, "sand8", false);
+        setup(19, "sand9", false);
+        setup(20, "sand10", false);
+        setup(21, "sand11", false);
+        setup(22, "sand12", false);
+        setup(23, "sand13", false);
+        setup(24, "sand14", false);
+        setup(25, "sand15", false);
+        setup(26, "sand16", false);
+        setup(27, "sand17", false);
+        setup(28, "sand18", false);
+        setup(29, "water1", false);
+        setup(30, "water2", false);
+        setup(30, "water3", false);
+        setup(30, "water4", false);
+        setup(30, "water5", false);
+        setup(30, "water6", false);
+        setup(30, "water7", false);
+        setup(30, "water8", false);
+        setup(30, "water9", false);
+        setup(30, "water10", false);
+        setup(30, "water11", false);
+        setup(30, "water12", false);
+        setup(30, "water13", false);
+        setup(30, "water14", false);
+        setup(31, "grass1", false);
+        setup(32, "grass2", false);
+        setup(33, "dirt", false);
+        setup(34, "bricks", false);
+        setup(35, "tree", false);
+
+        
+        // setup(1, "grass2", false);
+        // setup(2, "bricks", true);
+        // // setup(3, "water", true);
+        // setup(4, "dirt", false);
+        // setup(6, "tree", true);
+        // setup(7, "sand1", false);
+        // setup(8, "sand2", false);
+        // setup(10, "water1", true);
+        // setup(11, "water2", true);
+        // setup(12, "water3", true);
     }
 
     public void setup(int index, String imageName, boolean collision) {
