@@ -24,15 +24,16 @@ public class TileManager {
     }
 
     public void getTileImage() {
+        //NOTE: don't add in-between indexes - it breaks the map
         setup(0, "grass1", false);
         setup(1, "grass2", false);
         setup(2, "bricks", true);
         setup(3, "water", true);
         setup(4, "dirt1", false);
-        // setup(5, "dirt2", false);
         setup(6, "tree", true);
         setup(7, "sand1", false);
         setup(8, "sand2", false);
+        setup(9, "dirt2", false);
     }
 
     public void setup(int index, String imageName, boolean collision) {
