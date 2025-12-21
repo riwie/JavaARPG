@@ -40,10 +40,17 @@ public class Player extends Entity {
 
         if (keyH.upPressed == true || keyH.leftPressed == true || keyH.downPressed == true || keyH.rightPressed == true) {
 
-            // Let the latest pressed key that is still held drive the direction.
-            String newDirection = keyH.getCurrentDirection();
-            if (newDirection != null) {
-                direction = newDirection;
+            if (keyH.upPressed == true) {
+                direction = "up";
+            }
+            if (keyH.downPressed == true) {
+                direction = "down";
+            }
+            if (keyH.leftPressed == true) {
+                direction = "left";
+            }
+            if (keyH.rightPressed == true) {
+                direction = "right";
             }
 
             // check tile collision

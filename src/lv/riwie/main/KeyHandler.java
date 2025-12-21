@@ -2,15 +2,11 @@ package lv.riwie.main;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.ArrayDeque;
-import java.util.Deque;
 
 public class KeyHandler implements KeyListener {
 
     GamePanel gp;
     public boolean upPressed, downPressed, leftPressed, rightPressed, enterPressed;
-
-    private final Deque<Integer> directionOrder = new ArrayDeque<>();
 
     boolean checkDrawTime = false;
 
@@ -28,27 +24,23 @@ public class KeyHandler implements KeyListener {
 
         // PLAY STATE
         if (gp.gameState == gp.playState) {
-            if (code == KeyEvent.VK_W) {
+            if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP) {
                 upPressed = true;
-                rememberDirection(code);
-            } else if (code == KeyEvent.VK_S) {
+            } else if (code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN) {
                 downPressed = true;
-                rememberDirection(code);
             }
 
-            if (code == KeyEvent.VK_A) {
+            if (code == KeyEvent.VK_A || code == KeyEvent.VK_LEFT) {
                 leftPressed = true;
-                rememberDirection(code);
-            } else if (code == KeyEvent.VK_D) {
+            } else if (code == KeyEvent.VK_D || code == KeyEvent.VK_RIGHT) {
                 rightPressed = true;
-                rememberDirection(code);
             }
 
             if (code == KeyEvent.VK_P) {
                 gp.playSFX(5);
                 gp.gameState = gp.pauseState;
             }
-            if (code == KeyEvent.VK_ENTER) {
+            if (code == KeyEvent.VK_Z || code == KeyEvent.VK_ENTER || code == KeyEvent.VK_SPACE) {
                 enterPressed = true;
             }
 
@@ -73,7 +65,7 @@ public class KeyHandler implements KeyListener {
         // DIALOGUE STATE
 
         else if (gp.gameState == gp.dialogueState) {
-            if (code == KeyEvent.VK_ENTER) {
+            if (code == KeyEvent.VK_Z || code == KeyEvent.VK_ENTER || code == KeyEvent.VK_SPACE) {
                 gp.gameState = gp.playState;
             }
         }
@@ -82,64 +74,19 @@ public class KeyHandler implements KeyListener {
     @Override
     public void keyReleased(KeyEvent e) {
         int code = e.getKeyCode();
-        if (code == KeyEvent.VK_W) {
+        if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP) {
             upPressed = false;
-            forgetDirection(code);
         }
-        if (code == KeyEvent.VK_A) {
+        if (code == KeyEvent.VK_A ||  code == KeyEvent.VK_LEFT) {
             leftPressed = false;
-            forgetDirection(code);
         }
-        if (code == KeyEvent.VK_S) {
+        if (code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN) {
             downPressed = false;
-            forgetDirection(code);
         }
-        if (code == KeyEvent.VK_D) {
+        if (code == KeyEvent.VK_D || code == KeyEvent.VK_RIGHT) {
             rightPressed = false;
-            forgetDirection(code);
         }
     }
 
-    // Return the most recently pressed direction key that is still held, or null.
-    public String getCurrentDirection() {
-        while (!directionOrder.isEmpty()) {
-            int code = directionOrder.peekLast();
-            if (isDirectionStillHeld(code)) {
-                return codeToDirection(code);
-            }
-            directionOrder.pollLast();
-        }
-        return null;
-    }
-
-    private void rememberDirection(int code) {
-        // Maintain uniqueness then push to the back as most recent.
-        directionOrder.remove(code);
-        directionOrder.addLast(code);
-    }
-
-    private void forgetDirection(int code) {
-        directionOrder.remove(code);
-    }
-
-    private boolean isDirectionStillHeld(int code) {
-        return switch (code) {
-            case KeyEvent.VK_W -> upPressed;
-            case KeyEvent.VK_S -> downPressed;
-            case KeyEvent.VK_A -> leftPressed;
-            case KeyEvent.VK_D -> rightPressed;
-            default -> false;
-        };
-    }
-
-    private String codeToDirection(int code) {
-        return switch (code) {
-            case KeyEvent.VK_W -> "up";
-            case KeyEvent.VK_S -> "down";
-            case KeyEvent.VK_A -> "left";
-            case KeyEvent.VK_D -> "right";
-            default -> null;
-        };
-    }
 
 }
