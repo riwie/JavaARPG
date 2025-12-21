@@ -21,7 +21,15 @@ public class KeyHandler implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
+        // TITLE STATE
+        if (gp.gameState == gp.titleState) {
+            if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP) {
+                gp.ui.commandNum--;
+            } else if (code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN) {
+                gp.ui.commandNum++;
 
+            }
+        }
         // PLAY STATE
         if (gp.gameState == gp.playState) {
             if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP) {
@@ -77,7 +85,7 @@ public class KeyHandler implements KeyListener {
         if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP) {
             upPressed = false;
         }
-        if (code == KeyEvent.VK_A ||  code == KeyEvent.VK_LEFT) {
+        if (code == KeyEvent.VK_A || code == KeyEvent.VK_LEFT) {
             leftPressed = false;
         }
         if (code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN) {
@@ -87,6 +95,5 @@ public class KeyHandler implements KeyListener {
             rightPressed = false;
         }
     }
-
 
 }
