@@ -21,22 +21,54 @@ public class KeyHandler implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
+        boolean confirmKey = code == KeyEvent.VK_Z || code == KeyEvent.VK_ENTER || code == KeyEvent.VK_SPACE;
+
+        if (code == KeyEvent.VK_F4) {
+            System.exit(0);
+        }
+
         // TITLE STATE
         if (gp.gameState == gp.titleState) {
             if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP) {
                 gp.ui.commandNum--;
 
                 if (gp.ui.commandNum < 0) {
-                    gp.ui.commandNum = 2;
+                    gp.ui.commandNum = gp.ui.totalMenuOptionsCount;
                 }
 
             } else if (code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN) {
                 gp.ui.commandNum++;
-                if (gp.ui.commandNum > 2) {
+                if (gp.ui.commandNum > gp.ui.totalMenuOptionsCount) {
                     gp.ui.commandNum = 0;
+                }
+            } else if (code == KeyEvent.VK_ENTER) {
+                if (gp.ui.commandNum == 0) {
+                    // new game
+                    gp.gameState = gp.playState;
+                    // gp.playMusic(0);
+                } else if (gp.ui.commandNum == 1) {
+                    // load game logic
+                } else if (gp.ui.commandNum == 2) {
+                    // options logic
+                    gp.gameState = gp.optionsState;
+                } else if (gp.ui.commandNum == 3) {
+                    // quit logic
+                    System.exit(0);
                 }
             }
         }
+
+        // OPTIONS STATE
+        if (gp.gameState == gp.optionsState) {
+
+            if (code == KeyEvent.VK_ESCAPE) {
+                // if (gp.ui.currentOption == 0) {
+                //     // back button logic
+                    gp.gameState = gp.titleState;
+                // }
+            }
+        }
+
         // PLAY STATE
         if (gp.gameState == gp.playState) {
             if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP) {
@@ -55,7 +87,7 @@ public class KeyHandler implements KeyListener {
                 gp.playSFX(5);
                 gp.gameState = gp.pauseState;
             }
-            if (code == KeyEvent.VK_Z || code == KeyEvent.VK_ENTER || code == KeyEvent.VK_SPACE) {
+            if (confirmKey) {
                 enterPressed = true;
             }
 

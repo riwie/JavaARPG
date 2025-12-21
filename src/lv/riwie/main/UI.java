@@ -20,6 +20,9 @@ public class UI {
     public boolean gameFinished = false;
     public String currentDialogue = "";
     public int commandNum = 0;
+    public int totalMenuOptionsCount = 3;
+    public int currentOption = 0;
+    public int totalOptionsCount = 1;
 
     public UI(GamePanel gp) {
         this.gp = gp;
@@ -61,7 +64,39 @@ public class UI {
         if (gp.gameState == gp.dialogueState) {
             drawDialogueScreen();
         }
+
+        // OPTIONS STATE
+        if (gp.gameState == gp.optionsState) {
+            drawOptionsScreen();
+        }
     }
+
+    public void drawOptionsScreen() {
+        // background
+        g2.setColor(new Color(0, 0, 0));
+        g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+
+        // title
+        g2.setColor(Color.white);
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 50F));
+        String text = "OPTIONS";
+        int x = getXforCenteredText(text);
+        int y = (gp.screenHeight / 2) - gp.tileSize * 4;
+        g2.drawString(text, x, y);
+        
+        // buttons
+        g2.setColor(Color.white);
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 30F));
+        text = "BACK";
+        x = getXforCenteredText(text) + (gp.tileSize * 6);
+        y = gp.tileSize * 11;
+        g2.drawString(text, x, y);
+        if (currentOption == 0) {
+            g2.drawString(">", x - gp.tileSize, y);
+        }
+
+    }
+
 
     public void drawTitleScreen() {
         g2.setColor(new Color(0, 0, 0));
@@ -101,12 +136,18 @@ public class UI {
         if (commandNum == 1) {
             g2.drawString(">", x - gp.tileSize, y);
         }
-
-        text = "QUIT";
+        text = "OPTIONS";
         x = getXforCenteredText(text);
         y += gp.tileSize;
         g2.drawString(text, x, y);
         if (commandNum == 2) {
+            g2.drawString(">", x - gp.tileSize, y);
+        }
+        text = "QUIT";
+        x = getXforCenteredText(text);
+        y += gp.tileSize;
+        g2.drawString(text, x, y);
+        if (commandNum == 3) {
             g2.drawString(">", x - gp.tileSize, y);
         }
     }
