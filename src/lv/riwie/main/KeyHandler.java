@@ -8,6 +8,8 @@ public class KeyHandler implements KeyListener {
     GamePanel gp;
     public boolean upPressed, downPressed, leftPressed, rightPressed, enterPressed;
 
+    public boolean confirmKey, cancelKey;
+
     boolean checkDrawTime = false;
 
     public KeyHandler(GamePanel gp) {
@@ -21,7 +23,8 @@ public class KeyHandler implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
-        boolean confirmKey = code == KeyEvent.VK_Z || code == KeyEvent.VK_ENTER || code == KeyEvent.VK_SPACE;
+        confirmKey = code == KeyEvent.VK_Z || code == KeyEvent.VK_ENTER || code == KeyEvent.VK_SPACE;
+        cancelKey = code == KeyEvent.VK_X || code == KeyEvent.VK_CONTROL || code == KeyEvent.VK_ESCAPE;
 
         if (code == KeyEvent.VK_F4) {
             System.exit(0);
@@ -41,7 +44,7 @@ public class KeyHandler implements KeyListener {
                 if (gp.ui.commandNum > gp.ui.totalMenuOptionsCount) {
                     gp.ui.commandNum = 0;
                 }
-            } else if (code == KeyEvent.VK_ENTER) {
+            } else if (confirmKey) {
                 if (gp.ui.commandNum == 0) {
                     // new game
                     gp.gameState = gp.playState;
@@ -61,7 +64,7 @@ public class KeyHandler implements KeyListener {
         // OPTIONS STATE
         if (gp.gameState == gp.optionsState) {
 
-            if (code == KeyEvent.VK_ESCAPE) {
+            if (cancelKey) {
                 // if (gp.ui.currentOption == 0) {
                 //     // back button logic
                     gp.gameState = gp.titleState;
@@ -112,7 +115,7 @@ public class KeyHandler implements KeyListener {
         // DIALOGUE STATE
 
         else if (gp.gameState == gp.dialogueState) {
-            if (code == KeyEvent.VK_Z || code == KeyEvent.VK_ENTER || code == KeyEvent.VK_SPACE) {
+            if (confirmKey) {
                 gp.gameState = gp.playState;
             }
         }
