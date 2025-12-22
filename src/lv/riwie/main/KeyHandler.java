@@ -1,12 +1,7 @@
 package lv.riwie.main;
 
-import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 public class KeyHandler implements KeyListener {
 
@@ -21,7 +16,6 @@ public class KeyHandler implements KeyListener {
     public long passedTime = 0;
 
     boolean checkDrawTime = false;
-    JFrame inventoryFrame;
 
     public KeyHandler(GamePanel gp) {
         this.gp = gp;
@@ -113,23 +107,6 @@ public class KeyHandler implements KeyListener {
                 enterPressed = true;
             }
 
-            // INVENTORY
-            if (code == KeyEvent.VK_C) {
-                inventoryFrame = new JFrame("Inventory");
-                inventoryFrame.setLocationRelativeTo(lv.riwie.main.Main.frame);
-                inventoryFrame.setResizable(false);
-                inventoryFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                inventoryFrame.setSize(new Dimension(gp.tileSize * 6, gp.tileSize * 8));
-                
-                JPanel panel = new JPanel();
-                inventoryFrame.add(panel);
-
-
-                inventoryFrame.setVisible(true);
-                System.out.println("Inventory");
-                gp.gameState = gp.inventoryState;
-            }
-
             // DEBUG
             if (code == KeyEvent.VK_T) {
                 if (!checkDrawTime) {
@@ -147,13 +124,7 @@ public class KeyHandler implements KeyListener {
                 gp.gameState = gp.playState;
             }
         }
-        // INVENTORY STATE
-        if (gp.gameState == gp.inventoryState) {
-            if (cancelKey) {
-                inventoryFrame.dispose();
-                gp.gameState = gp.playState;
-            }
-        }
+
         // DIALOGUE STATE
 
         else if (gp.gameState == gp.dialogueState) {
