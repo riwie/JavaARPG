@@ -52,6 +52,7 @@ public class UI {
         // PLAY STATE
 
         if (gp.gameState == gp.playState) {
+            gp.gameTitle = "Doing something";
             // playstate
         }
         // PAUSE STATE

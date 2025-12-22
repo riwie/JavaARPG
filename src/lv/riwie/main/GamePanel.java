@@ -110,7 +110,6 @@ public class GamePanel extends JPanel implements Runnable {
         else {
             gameTitle = "The Boy and the Forest";
         }
-
         if (gameState == playState) {
             player.update();
             for (int i = 0; i < npc.length; i++) {
