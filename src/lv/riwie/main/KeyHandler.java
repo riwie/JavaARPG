@@ -10,6 +10,11 @@ public class KeyHandler implements KeyListener {
 
     public boolean confirmKey, cancelKey;
 
+    public boolean exittingBegins = false;
+
+    public long f4PressTime = System.nanoTime();
+    public long passedTime = 0;
+
     boolean checkDrawTime = false;
 
     public KeyHandler(GamePanel gp) {
@@ -27,7 +32,12 @@ public class KeyHandler implements KeyListener {
         cancelKey = code == KeyEvent.VK_X || code == KeyEvent.VK_CONTROL || code == KeyEvent.VK_ESCAPE;
 
         if (code == KeyEvent.VK_F4) {
-            System.exit(0);
+            passedTime += f4PressTime;
+            exittingBegins = true;
+            if ((double)passedTime/1000000000 >= 50000000) {
+                System.exit(0);
+            }
+            // System.exit(0);
         }
 
         // TITLE STATE
@@ -66,8 +76,8 @@ public class KeyHandler implements KeyListener {
 
             if (cancelKey) {
                 // if (gp.ui.currentOption == 0) {
-                //     // back button logic
-                    gp.gameState = gp.titleState;
+                // // back button logic
+                gp.gameState = gp.titleState;
                 // }
             }
         }
@@ -124,6 +134,12 @@ public class KeyHandler implements KeyListener {
     @Override
     public void keyReleased(KeyEvent e) {
         int code = e.getKeyCode();
+
+        if (code == KeyEvent.VK_F4) {
+            passedTime = 0;
+            exittingBegins = false;
+        }
+
         if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP) {
             upPressed = false;
         }

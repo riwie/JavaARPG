@@ -53,6 +53,7 @@ public class UI {
         // PLAY STATE
 
         if (gp.gameState == gp.playState) {
+            gp.gameTitle = "Doing something";
             // playstate
         }
         // PAUSE STATE
@@ -72,6 +73,7 @@ public class UI {
     }
 
     public void drawOptionsScreen() {
+        gp.gameTitle = "Options";
         // background
         g2.setColor(new Color(0, 0, 0));
         g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
@@ -83,7 +85,6 @@ public class UI {
         int x = getXforCenteredText(text);
         int y = (gp.screenHeight / 2) - gp.tileSize * 4;
         g2.drawString(text, x, y);
-        
         // buttons
         g2.setColor(Color.white);
         g2.setFont(g2.getFont().deriveFont(Font.BOLD, 30F));
@@ -96,7 +97,6 @@ public class UI {
         }
 
     }
-
 
     public void drawTitleScreen() {
         g2.setColor(new Color(0, 0, 0));
@@ -153,6 +153,7 @@ public class UI {
     }
 
     public void drawPauseScreen() {
+        gp.gameTitle = "Paused";
         g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 80f));
         String text = "Paused";
         int x = getXforCenteredText(text);

@@ -40,6 +40,7 @@ public class GamePanel extends JPanel implements Runnable {
     public UI ui = new UI(this);
     public AssetSetter aSetter = new AssetSetter(this);
     Thread gameThread;
+    String gameTitle = "The Boy and the Forest";
 
     // PLAYER AND OBJECTS
     public Player player = new Player(this, keyH);
@@ -101,6 +102,15 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void update() {
+        lv.riwie.main.Main.frame.setTitle(gameTitle);
+
+        if (keyH.exittingBegins) {
+            gameTitle = "Quitting...";
+        }
+        else {
+            gameTitle = "The Boy and the Forest";
+        }
+        
         if (gameState == playState) {
             player.update();
             for (int i = 0; i < npc.length; i++) {
