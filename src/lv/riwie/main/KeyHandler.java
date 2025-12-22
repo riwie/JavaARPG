@@ -1,7 +1,12 @@
 package lv.riwie.main;
 
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 public class KeyHandler implements KeyListener {
 
@@ -16,6 +21,7 @@ public class KeyHandler implements KeyListener {
     public long passedTime = 0;
 
     boolean checkDrawTime = false;
+    JFrame inventoryFrame;
 
     public KeyHandler(GamePanel gp) {
         this.gp = gp;
@@ -31,30 +37,30 @@ public class KeyHandler implements KeyListener {
         confirmKey = code == KeyEvent.VK_Z || code == KeyEvent.VK_ENTER || code == KeyEvent.VK_SPACE;
         cancelKey = code == KeyEvent.VK_X || code == KeyEvent.VK_CONTROL || code == KeyEvent.VK_ESCAPE;
 
-        if (code == KeyEvent.VK_F4) {
+        if (code == KeyEvent.VK_F4) { // game quitting logic
             passedTime += f4PressTime;
             exittingBegins = true;
-            if ((double)passedTime/1000000000 >= 50000000) {
+            if ((double) passedTime / 1000000000 >= 50000000) {
                 System.exit(0);
             }
             // System.exit(0);
         }
 
         // TITLE STATE
-        if (gp.gameState == gp.titleState) {
-            if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP) {
+        if (gp.gameState == gp.titleState) { // title screen logic
+            if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP) { // menu up
                 gp.ui.commandNum--;
 
                 if (gp.ui.commandNum < 0) {
                     gp.ui.commandNum = gp.ui.totalMenuOptionsCount;
                 }
 
-            } else if (code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN) {
+            } else if (code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN) { // menu down
                 gp.ui.commandNum++;
                 if (gp.ui.commandNum > gp.ui.totalMenuOptionsCount) {
                     gp.ui.commandNum = 0;
                 }
-            } else if (confirmKey) {
+            } else if (confirmKey) { // menu select
                 if (gp.ui.commandNum == 0) {
                     // new game
                     gp.gameState = gp.playState;
@@ -72,7 +78,7 @@ public class KeyHandler implements KeyListener {
         }
 
         // OPTIONS STATE
-        if (gp.gameState == gp.optionsState) {
+        if (gp.gameState == gp.optionsState) { // options logic
 
             if (cancelKey) {
                 // if (gp.ui.currentOption == 0) {
@@ -84,29 +90,44 @@ public class KeyHandler implements KeyListener {
 
         // PLAY STATE
         if (gp.gameState == gp.playState) {
+            // movement
             if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP) {
                 upPressed = true;
             } else if (code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN) {
                 downPressed = true;
             }
-
             if (code == KeyEvent.VK_A || code == KeyEvent.VK_LEFT) {
                 leftPressed = true;
             } else if (code == KeyEvent.VK_D || code == KeyEvent.VK_RIGHT) {
                 rightPressed = true;
             }
 
+            // pause
             if (code == KeyEvent.VK_P) {
                 gp.playSFX(5);
                 gp.gameState = gp.pauseState;
             }
+
+            // interact
             if (confirmKey) {
                 enterPressed = true;
             }
 
             // INVENTORY
             if (code == KeyEvent.VK_C) {
-                // gp.gameState = gp.inventoryState;
+                inventoryFrame = new JFrame("Inventory");
+                inventoryFrame.setLocationRelativeTo(lv.riwie.main.Main.frame);
+                inventoryFrame.setResizable(false);
+                inventoryFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                inventoryFrame.setSize(new Dimension(gp.tileSize * 6, gp.tileSize * 8));
+                
+                JPanel panel = new JPanel();
+                inventoryFrame.add(panel);
+
+
+                inventoryFrame.setVisible(true);
+                System.out.println("Inventory");
+                gp.gameState = gp.inventoryState;
             }
 
             // DEBUG
@@ -127,12 +148,12 @@ public class KeyHandler implements KeyListener {
             }
         }
         // INVENTORY STATE
-        else if (gp.gameState == gp.inventoryState) {
+        if (gp.gameState == gp.inventoryState) {
             if (cancelKey) {
+                inventoryFrame.dispose();
                 gp.gameState = gp.playState;
             }
         }
-
         // DIALOGUE STATE
 
         else if (gp.gameState == gp.dialogueState) {
