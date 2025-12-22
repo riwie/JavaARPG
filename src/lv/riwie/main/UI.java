@@ -52,7 +52,6 @@ public class UI {
         // PLAY STATE
 
         if (gp.gameState == gp.playState) {
-            gp.gameTitle = "Doing something";
             // playstate
         }
         // PAUSE STATE
@@ -68,11 +67,6 @@ public class UI {
         // OPTIONS STATE
         if (gp.gameState == gp.optionsState) {
             drawOptionsScreen();
-        }
-
-        // INVENTORY STATE
-        if (gp.gameState == gp.inventoryState) {
-            // nothing
         }
     }
 
