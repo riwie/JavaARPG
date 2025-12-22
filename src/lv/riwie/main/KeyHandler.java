@@ -104,6 +104,11 @@ public class KeyHandler implements KeyListener {
                 enterPressed = true;
             }
 
+            // INVENTORY
+            if (code == KeyEvent.VK_C) {
+                // gp.gameState = gp.inventoryState;
+            }
+
             // DEBUG
             if (code == KeyEvent.VK_T) {
                 if (!checkDrawTime) {
@@ -118,6 +123,12 @@ public class KeyHandler implements KeyListener {
         else if (gp.gameState == gp.pauseState) {
             if (code == KeyEvent.VK_P) {
                 gp.playSFX(5);
+                gp.gameState = gp.playState;
+            }
+        }
+        // INVENTORY STATE
+        else if (gp.gameState == gp.inventoryState) {
+            if (cancelKey) {
                 gp.gameState = gp.playState;
             }
         }

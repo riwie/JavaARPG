@@ -10,6 +10,8 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+import javax.swing.JFrame;
+
 public class UI {
     GamePanel gp;
     Graphics2D g2;
@@ -70,6 +72,20 @@ public class UI {
         if (gp.gameState == gp.optionsState) {
             drawOptionsScreen();
         }
+
+        // INVENTORY STATE
+        if (gp.gameState == gp.inventoryState) {
+            drawInventory();
+            System.out.println("Inventory");
+        }
+    }
+
+    private void drawInventory() {
+        JFrame inventoryFrame = new JFrame("Inventory");
+        inventoryFrame.setLocationRelativeTo(lv.riwie.main.Main.frame);
+        inventoryFrame.setResizable(false);
+        inventoryFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        inventoryFrame.setVisible(true);
     }
 
     public void drawOptionsScreen() {

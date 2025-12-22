@@ -54,6 +54,7 @@ public class GamePanel extends JPanel implements Runnable {
     public final int pauseState = 2;
     public final int dialogueState = 3;
     public final int optionsState = 4;
+    public final int inventoryState = 5;
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -110,7 +111,7 @@ public class GamePanel extends JPanel implements Runnable {
         else {
             gameTitle = "The Boy and the Forest";
         }
-        
+
         if (gameState == playState) {
             player.update();
             for (int i = 0; i < npc.length; i++) {
