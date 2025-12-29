@@ -42,31 +42,34 @@ public class KeyHandler implements KeyListener {
 
         // TITLE STATE
         if (gp.gameState == gp.titleState) { // title screen logic
-            if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP) { // menu up
-                gp.ui.commandNum--;
 
-                if (gp.ui.commandNum < 0) {
-                    gp.ui.commandNum = gp.ui.totalMenuOptionsCount;
-                }
+            if (gp.ui.titleScreenState == 0) {
+                if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP) { // menu up
+                    gp.ui.commandNum--;
 
-            } else if (code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN) { // menu down
-                gp.ui.commandNum++;
-                if (gp.ui.commandNum > gp.ui.totalMenuOptionsCount) {
-                    gp.ui.commandNum = 0;
-                }
-            } else if (confirmKey) { // menu select
-                if (gp.ui.commandNum == 0) {
-                    // new game
-                    gp.gameState = gp.playState;
-                    // gp.playMusic(0);
-                } else if (gp.ui.commandNum == 1) {
-                    // load game logic
-                } else if (gp.ui.commandNum == 2) {
-                    // options logic
-                    gp.gameState = gp.optionsState;
-                } else if (gp.ui.commandNum == 3) {
-                    // quit logic
-                    System.exit(0);
+                    if (gp.ui.commandNum < 0) {
+                        gp.ui.commandNum = gp.ui.totalMenuOptionsCount;
+                    }
+
+                } else if (code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN) { // menu down
+                    gp.ui.commandNum++;
+                    if (gp.ui.commandNum > gp.ui.totalMenuOptionsCount) {
+                        gp.ui.commandNum = 0;
+                    }
+                } else if (confirmKey) { // menu select
+                    if (gp.ui.commandNum == 0) {
+                        // new game
+                        gp.gameState = gp.playState;
+                        // gp.playMusic(0);
+                    } else if (gp.ui.commandNum == 1) {
+                        // load game logic
+                    } else if (gp.ui.commandNum == 2) {
+                        // options logic
+                        gp.gameState = gp.optionsState;
+                    } else if (gp.ui.commandNum == 3) {
+                        // quit logic
+                        System.exit(0);
+                    }
                 }
             }
         }

@@ -38,6 +38,7 @@ public class GamePanel extends JPanel implements Runnable {
     Sound music = new Sound();
     public CollisionChecker cChecker = new CollisionChecker(this);
     public UI ui = new UI(this);
+    public EventHandler eHandler = new EventHandler(this);
     public AssetSetter aSetter = new AssetSetter(this);
     Thread gameThread;
     String gameTitle = "The Boy and the Forest";
