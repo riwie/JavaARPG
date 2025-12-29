@@ -19,7 +19,7 @@ public class EventHandler {
 
     public void checkEvent() {
         // damage pit: x = 18, y = 17
-        if (hit(18, 17, "left") == true) {damagePit(gp.gameState);}
+        if (hit(18, 17, "left") == true) {damagePit(gp.dialogueState);} 
     }
     public boolean hit(int eventCol, int eventRow, String reqDirection) {
         boolean hit = false;
