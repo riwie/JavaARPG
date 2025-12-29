@@ -18,7 +18,8 @@ public class EventHandler {
     }
 
     public void checkEvent() {
-
+        // damage pit: x = 18, y = 17
+        if (hit(18, 17, "left") == true) {damagePit(gp.gameState);}
     }
     public boolean hit(int eventCol, int eventRow, String reqDirection) {
         boolean hit = false;
@@ -38,8 +39,13 @@ public class EventHandler {
         gp.player.solidArea.y = gp.player.solidAreaDefaultY;
         eventRect.x = eventRectDefaultX;
         eventRect.y = eventRectDefaultY;
-        
+
 
         return hit;
+    }
+    public void damagePit(int gameState) {
+        gp.gameState = gameState;
+        gp.ui.currentDialogue = "You fall into a pit!";
+        gp.player.life -= 1;
     }
 }
