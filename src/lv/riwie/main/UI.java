@@ -148,8 +148,8 @@ public class UI {
             g2.setColor(new Color(0, 0, 0));
             g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
 
-            g2.setFont(g2.getFont().deriveFont(Font.BOLD, 50F));
-            String text = "The Boy and the Forest";
+            g2.setFont(g2.getFont().deriveFont(Font.BOLD, 70F));
+            String text = "Ildor";
             int x = getXforCenteredText(text), y = gp.tileSize * 3;
             // Shadow
             g2.setColor(Color.gray);
