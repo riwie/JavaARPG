@@ -38,9 +38,11 @@ public class GamePanel extends JPanel implements Runnable {
     Sound music = new Sound();
     public CollisionChecker cChecker = new CollisionChecker(this);
     public UI ui = new UI(this);
+    public EventHandler eHandler = new EventHandler(this);
     public AssetSetter aSetter = new AssetSetter(this);
     Thread gameThread;
-    String gameTitle = "The Boy and the Forest";
+    String gameTitle = "Ildor";
+    String currentGameWindowTitle = "gameTitle";
 
     // PLAYER AND OBJECTS
     public Player player = new Player(this, keyH);
@@ -78,7 +80,7 @@ public class GamePanel extends JPanel implements Runnable {
     @Override
     public void run() {
 
-        double drawInterval = 1000000000 / FPS;
+        double drawInterval = 1000000000f / FPS;
         double nextDrawTime = System.nanoTime() + drawInterval;
         while (gameThread != null) {
             update();
@@ -102,13 +104,13 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void update() {
-        lv.riwie.main.Main.frame.setTitle(gameTitle);
+        lv.riwie.main.Main.frame.setTitle(currentGameWindowTitle);
 
         if (keyH.exittingBegins) {
-            gameTitle = "Quitting...";
+            currentGameWindowTitle = "Quitting...";
         }
         else {
-            gameTitle = "The Boy and the Forest";
+            currentGameWindowTitle = gameTitle;
         }
         if (gameState == playState) {
             player.update();
@@ -130,7 +132,7 @@ public class GamePanel extends JPanel implements Runnable {
         Graphics2D g2 = (Graphics2D) g;
 
         long drawStart = 0;
-        if (keyH.checkDrawTime == true) {
+        if (keyH.checkDrawTime) {
             drawStart = System.nanoTime();
         }
 
@@ -157,7 +159,7 @@ public class GamePanel extends JPanel implements Runnable {
             ui.draw(g2);
         }
 
-        if (keyH.checkDrawTime == true) {
+        if (keyH.checkDrawTime) {
             long drawEnd = System.nanoTime();
             long passed = drawEnd - drawStart;
             g2.setColor(Color.white);

@@ -3,6 +3,7 @@ package lv.riwie.entity;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+
 import lv.riwie.main.GamePanel;
 import lv.riwie.main.KeyHandler;
 
@@ -34,22 +35,27 @@ public class Player extends Entity {
 
         speed = 4;
         direction = "down";
+
+        // PLAYER STATUS
+        maxLife = 6;
+        life = maxLife;
+
     }
 
     public void update() {
 
-        if (keyH.upPressed == true || keyH.leftPressed == true || keyH.downPressed == true || keyH.rightPressed == true) {
+        if (keyH.upPressed || keyH.leftPressed || keyH.downPressed || keyH.rightPressed) {
 
-            if (keyH.upPressed == true) {
+            if (keyH.upPressed) {
                 direction = "up";
             }
-            if (keyH.downPressed == true) {
+            if (keyH.downPressed) {
                 direction = "down";
             }
-            if (keyH.leftPressed == true) {
+            if (keyH.leftPressed) {
                 direction = "left";
             }
-            if (keyH.rightPressed == true) {
+            if (keyH.rightPressed) {
                 direction = "right";
             }
 
@@ -63,7 +69,12 @@ public class Player extends Entity {
             int npcIndex = gp.cChecker.checkEntity(this, gp.npc);
             interactNPC(npcIndex);
 
-            if (collisionOn == false) {
+            // CHECK EVENT
+            gp.eHandler.checkEvent();
+
+            gp.keyH.enterPressed = false;
+
+            if (!collisionOn) {
                 switch (direction) {
                     case "up":
                         worldY -= speed;
@@ -82,15 +93,12 @@ public class Player extends Entity {
 
             spriteCounter++;
             if (spriteCounter >= 12) {
-                if (spriteIndex == 1) {
-                    spriteIndex = 2;
-                } else if (spriteIndex == 2) {
+                spriteIndex++;
+                if (spriteIndex > 4) {
                     spriteIndex = 1;
                 }
                 spriteCounter = 0;
             }
-        } else {
-            spriteIndex = 1;
         }
     }
 
@@ -107,7 +115,7 @@ public class Player extends Entity {
                 gp.npc[i].speak();
             }
         }
-        gp.keyH.enterPressed = false;
+
     }
 
     public void draw(Graphics2D g2) {
@@ -121,6 +129,12 @@ public class Player extends Entity {
                     if (spriteIndex == 2) {
                         image = up2;
                     }
+                    if (spriteIndex == 3) {
+                        image = up3;
+                    }
+                    if (spriteIndex == 4) {
+                        image = up4;
+                    }
                     break;
                 case "down":
                     if (spriteIndex == 1) {
@@ -128,6 +142,12 @@ public class Player extends Entity {
                     }
                     if (spriteIndex == 2) {
                         image = down2;
+                    }
+                    if (spriteIndex == 3) {
+                        image = down3;
+                    }
+                    if (spriteIndex == 4) {
+                        image = down4;
                     }
                     break;
                 case "left":
@@ -137,6 +157,12 @@ public class Player extends Entity {
                     if (spriteIndex == 2) {
                         image = left2;
                     }
+                    if (spriteIndex == 3) {
+                        image = left3;
+                    }
+                    if (spriteIndex == 4) {
+                        image = left4;
+                    }
                     break;
                 case "right":
                     if (spriteIndex == 1) {
@@ -144,6 +170,12 @@ public class Player extends Entity {
                     }
                     if (spriteIndex == 2) {
                         image = right2;
+                    }
+                    if (spriteIndex == 3) {
+                        image = right3;
+                    }
+                    if (spriteIndex == 4) {
+                        image = right4;
                     }
                     break;
             }
@@ -155,14 +187,22 @@ public class Player extends Entity {
     }
 
     public void getPlayerImage() {
-        up1 = setup("res/player/Character_walking_up_1.png");
-        up2 = setup("res/player/Character_walking_up_2.png");
-        down1 = setup("res/player/Character_walking_down_1.png");
-        down2 = setup("res/player/Character_walking_down_2.png");
-        left1 = setup("res/player/Character_walking_left_1.png");
-        left2 = setup("res/player/Character_walking_left_2.png");
-        right1 = setup("res/player/Character_walking_right_1.png");
-        right2 = setup("res/player/Character_walking_right_2.png");
+        up1 = setup("res/player/walking_up1.png");
+        up2 = setup("res/player/walking_up2.png");
+        up3 = setup("res/player/walking_up3.png");
+        up4 = setup("res/player/walking_up4.png");
+        down1 = setup("res/player/walking_down1.png");
+        down2 = setup("res/player/walking_down2.png");
+        down3 = setup("res/player/walking_down3.png");
+        down4 = setup("res/player/walking_down4.png");
+        left1 = setup("res/player/walking_left1.png");
+        left2 = setup("res/player/walking_left2.png");
+        left3 = setup("res/player/walking_left3.png");
+        left4 = setup("res/player/walking_left4.png");
+        right1 = setup("res/player/walking_right1.png");
+        right2 = setup("res/player/walking_right2.png");
+        right3 = setup("res/player/walking_right3.png");
+        right4 = setup("res/player/walking_right4.png");
     }
 
 }

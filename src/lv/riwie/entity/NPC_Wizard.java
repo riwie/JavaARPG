@@ -14,14 +14,22 @@ public class NPC_Wizard extends Entity {
     }
 
     public void getImage() {
-        up1 = setup("res/npc/wizard_up1.png");
-        up2 = setup("res/npc/wizard_up2.png");
-        down1 = setup("res/npc/wizard_down1.png");
-        down2 = setup("res/npc/wizard_down2.png");
-        left1 = setup("res/npc/wizard_left1.png");
-        left2 = setup("res/npc/wizard_left2.png");
-        right1 = setup("res/npc/wizard_right1.png");
-        right2 = setup("res/npc/wizard_right2.png");
+        up1 = setup("res/npc/wizard/walking_up1.png");
+        up2 = setup("res/npc/wizard/walking_up2.png");
+        up3 = setup("res/npc/wizard/walking_up3.png");
+        up4 = setup("res/npc/wizard/walking_up4.png");
+        down1 = setup("res/npc/wizard/walking_down1.png");
+        down2 = setup("res/npc/wizard/walking_down2.png");
+        down3 = setup("res/npc/wizard/walking_down3.png");
+        down4 = setup("res/npc/wizard/walking_down4.png");
+        left1 = setup("res/npc/wizard/walking_left1.png");
+        left2 = setup("res/npc/wizard/walking_left2.png");
+        left3 = setup("res/npc/wizard/walking_left3.png");
+        left4 = setup("res/npc/wizard/walking_left4.png");
+        right1 = setup("res/npc/wizard/walking_right1.png");
+        right2 = setup("res/npc/wizard/walking_right2.png");
+        right3 = setup("res/npc/wizard/walking_right3.png");
+        right4 = setup("res/npc/wizard/walking_right4.png");
     }
 
     public void setAction() {
