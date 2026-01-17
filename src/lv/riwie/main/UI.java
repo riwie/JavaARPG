@@ -40,6 +40,7 @@ public class UI {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         // CREATE HUD OBJECT
         SuperObject heart = new OBJ_Heart(gp);
         heart_full = heart.image;
@@ -65,7 +66,7 @@ public class UI {
         // PLAY STATE
 
         if (gp.gameState == gp.playState) {
-            // playstate
+            // play state
             drawPlayerLife();
         }
         // PAUSE STATE

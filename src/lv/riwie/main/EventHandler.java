@@ -9,18 +9,22 @@ public class EventHandler {
     public EventHandler(GamePanel gp) {
         this.gp = gp;
         eventRect = new Rectangle();
-        eventRect.x = 23;
-        eventRect.y = 23;
-        eventRect.width = 2;
-        eventRect.height = 2;
+        eventRect.x = gp.tileSize/2;
+        eventRect.y = gp.tileSize/2;
+        eventRect.width = 23;
+        eventRect.height = 23;
         eventRectDefaultX = eventRect.x;
         eventRectDefaultY = eventRect.y;
     }
 
     public void checkEvent() {
         // damage pit: x = 18, y = 17
-        if (hit(18, 17, "left") == true) {damagePit(gp.dialogueState);} 
+//        if (hit(18, 17, "left")) {damagePit(gp.dialogueState);}
+        if (hit(15, 6, "up")) {healingPool(gp.dialogueState);}
+        if (hit(18, 17, "left")) {teleport(gp.dialogueState);}
     }
+
+
     public boolean hit(int eventCol, int eventRow, String reqDirection) {
         boolean hit = false;
 
@@ -43,9 +47,23 @@ public class EventHandler {
 
         return hit;
     }
+
     public void damagePit(int gameState) {
         gp.gameState = gameState;
-        gp.ui.currentDialogue = "You fall into a pit!";
+        gp.ui.currentDialogue = "You fell into a pit!";
         gp.player.life -= 1;
+    }
+    public void healingPool(int gameState) {
+        if (gp.keyH.confirmKey) {
+            gp.gameState = gameState;
+            gp.ui.currentDialogue = "You drink from the pond.\nYour life has been recovered";
+            gp.player.life = gp.player.maxLife;
+        }
+    }
+    public void teleport(int gameState) {
+        gp.gameState = gameState;
+        gp.ui.currentDialogue = "Teleport!";
+        gp.player.worldX = gp.tileSize*34;
+        gp.player.worldY = gp.tileSize*6;
     }
 }

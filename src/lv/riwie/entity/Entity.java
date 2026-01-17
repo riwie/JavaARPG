@@ -13,7 +13,7 @@ import lv.riwie.main.UtilityTool;
 public class Entity {
     public int worldX, worldY;
     public int speed;
-    public BufferedImage up1, up2, down1, down2, left1, left2, right1, right2;
+    public BufferedImage up1, up2, up3, up4, down1, down2, down3, down4, left1, left2, left3, left4, right1, right2, right3, right4;
     public String direction;
 
     public int spriteCounter = 0;
@@ -69,7 +69,7 @@ public class Entity {
         gp.cChecker.checkObject(this, false);
         gp.cChecker.checkPlayer(this);
 
-        if (collisionOn == false) {
+        if (!collisionOn) {
             switch (direction) {
                 case "up":
                     worldY -= speed;
@@ -87,16 +87,11 @@ public class Entity {
         }
         spriteCounter++;
         if (spriteCounter >= 12) {
-            if (spriteIndex == 1) {
-                spriteIndex = 2;
-            } else if (spriteIndex == 2) {
+            spriteIndex++;
+            if (spriteIndex > 4) {
                 spriteIndex = 1;
             }
             spriteCounter = 0;
-        } else
-
-        {
-            spriteIndex = 1;
         }
     }
 
@@ -118,6 +113,12 @@ public class Entity {
                     if (spriteIndex == 2) {
                         image = up2;
                     }
+                    if (spriteIndex == 3) {
+                    image = up3;
+                    }
+                    if (spriteIndex == 4) {
+                    image = up4;
+                    }
                     break;
                 case "down":
                     if (spriteIndex == 1) {
@@ -125,6 +126,12 @@ public class Entity {
                     }
                     if (spriteIndex == 2) {
                         image = down2;
+                    }
+                    if (spriteIndex == 3) {
+                        image = down3;
+                    }
+                    if (spriteIndex == 4) {
+                        image = down4;
                     }
                     break;
                 case "left":
@@ -134,6 +141,12 @@ public class Entity {
                     if (spriteIndex == 2) {
                         image = left2;
                     }
+                    if (spriteIndex == 3) {
+                        image = left3;
+                    }
+                    if (spriteIndex == 4) {
+                        image = left4;
+                    }
                     break;
                 case "right":
                     if (spriteIndex == 1) {
@@ -141,6 +154,12 @@ public class Entity {
                     }
                     if (spriteIndex == 2) {
                         image = right2;
+                    }
+                    if (spriteIndex == 3) {
+                        image = right3;
+                    }
+                    if (spriteIndex == 4) {
+                        image = right4;
                     }
                     break;
             }
